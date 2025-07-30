@@ -1,8 +1,8 @@
 order.getTotal = function(){
     var sum=0;
-    for(i in this.items)
+    for(let item in this.items)
     {
-        sum += i.price * i.quantity;
+        sum += item.price * item.quantity;
     }
     return sum;
 };
@@ -10,13 +10,15 @@ order.markAsPaid = function(){
     this.paid = true;
 };
 order.addItem = function(itemName, itemPrice, itemQuantity){
-    this.items.push(itemName, itemPrice, itemQuantity);
+    this.items.push({name: itemName, price: itemPrice, quantity: itemQuantity});
 };
 console.log("\n\nTask 2 ->");
 console.log("Total: " + order.getTotal());
 console.log("Before 'markAsPaid':" + order.paid);
 order.markAsPaid();
 console.log("After 'markAsPaid':" + order.paid);
-console.log("Before 'addItem':" + order.items);
+console.log("Before 'addItem':");
+console.log(order.items);
 order.addItem("Cola", 1, 1)
-console.log("After 'addItem':" + order.items);
+console.log("After 'addItem':");
+console.log(order.items);
