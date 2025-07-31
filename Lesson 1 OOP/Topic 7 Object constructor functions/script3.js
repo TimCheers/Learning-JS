@@ -5,7 +5,7 @@ function Admin(adminName, adminAge, adminPrermissions){
     this.permissions=adminPrermissions,
     this.showPermissions = function(){
         console.log("Права администратора: \n");
-        for(var item in this.permissions){
+        for (const perm of this.permissions){ //WRONG - for(var item in this.permissions){
             console.log(item+ "\t");
         }
     }
