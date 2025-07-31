@@ -1,5 +1,9 @@
 console.log("\n\nTask 4 ->");
-for(const prop of Object.entries(car)){ 
-                                                    //Не знаю как проверить свойство или функция
-    console.log(prop);
+for(const [key, value] of Object.entries(car)){ 
+    if(typeof value === "function"){
+        console.log("Функция: ", key)
+    }
+    else{
+        console.log("Обычное свойство: ", key)
+    }
 }
