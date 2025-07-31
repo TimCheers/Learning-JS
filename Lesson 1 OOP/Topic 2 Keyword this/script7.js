@@ -6,5 +6,5 @@ function f2(){
 const obj = {bar: "object"}
 var bar = "global";
 f2();
-const func = f1.bind(obj);
+const func = f2.bind(obj);
 func();

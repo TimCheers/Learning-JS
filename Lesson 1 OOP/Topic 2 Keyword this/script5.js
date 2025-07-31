@@ -7,7 +7,8 @@ let logger3 = {
     },
     delayedPrint: function()
     {
-        var setTimeout=5;
+        //var setTimeout=5;     Wrong!
+        setTimeout(()=>{console.log(this);}, 1000);
         console.log(this);
     }
 };

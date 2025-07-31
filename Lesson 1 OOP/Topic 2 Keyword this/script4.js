@@ -6,8 +6,12 @@ let logger2 = {
     }
 };
 
-var tmp = {
-    name: "name1",
-    foo: logger2.printContext
-}
-tmp.foo();
+//!!Это не обязательно, но работает
+// var tmp = {
+//     name: "name1",
+//     foo: logger2.printContext
+// }
+
+const foo = logger2.printContext;
+foo();
+//tmp.foo();
