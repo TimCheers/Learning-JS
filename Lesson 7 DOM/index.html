@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>DOM Practice</title>
   <style>
-    .highlight { background-color: yellow; }
-    .red { color: red; }
-    .blue { color: blue; }
+    .highlight {
+      background-color: yellow;
+    }
+
+    .red {
+      color: red;
+    }
+
+    .blue {
+      color: blue;
+    }
   </style>
 </head>
+
 <body>
   <h1 id="main-title">DOM Practice</h1>
   <p name="desc">Описание страницы</p>
@@ -21,83 +31,182 @@
   </div>
   <div id="nested">
     <span class="inner">Nested Span</span>
+    <tim-element></tim-element>
   </div>
-  
+
   <script>
     console.log("🟩 Task 1.1: Получение элемента по id");
     // Получи элемент с id "main-title" и выведи его текст
+    const elem1 = document.getElementById("main-title");
+    console.log("Text: " + elem1.innerText);
+
 
     console.log("🟩 Task 1.2: Получение по тегу");
     // Получи все теги <li> и выведи их количество
+    const elem2 = document.getElementsByTagName("li");
+    console.log(elem2.length);
 
     console.log("🟩 Task 1.3: Получение по классу");
     // Получи элементы с классом "item" и измени их текст
+    const elem3 = document.getElementsByClassName("item");
+    for (item of elem3) {
+      item.innerText = `new text`;
+    }
+
 
     console.log("🟩 Task 1.4: Поиск по name");
     // Найди элемент по атрибуту name="desc" и выведи его текст
+    const elem4 = document.getElementsByName("desc");
+    console.log(elem4.innerText);                                         //?
+
 
     console.log("🟩 Task 1.5: Поиск по CSS-селектору");
     // Найди элемент .container ul.items и выведи его tagName
+    const elem5 = document.querySelector(".container ul.items");
+    console.log(elem5.tagName);
+
 
     console.log("🟩 Task 1.6: Поиск во вложенных элементах");
     // Найди span внутри #nested и измени его текст
+    const elem6 = document.getElementById("nested");
+    const elem7 = elem6.getElementsByTagName("span");
+    elem7.innerText = "Updated text";
+    console.log(elem7);                                                   //?
+
 
     console.log("🟩 Task 2.1: Получение родителя");
     // Найди родительский элемент любого <li>
+    const liParent = elem5?.parentNode;
+    console.log(liParent);
+
 
     console.log("🟩 Task 2.2: Получение дочерних элементов");
     // Получи всех детей ul.items
+    const ulElem = document.getElementsByTagName("ul");
+    console.log(ulElem);
+    for (item of ulElem[0].children) {
+      console.log(item);
+    }
+
 
     console.log("🟩 Task 2.3: Получение соседних элементов");
     // Найди предыдущий или следующий элемент для второго <li>
+    console.log(elem2[1].previousElementSibling);
+    console.log(elem2[1].nextElementSibling);
+
 
     console.log("🟩 Task 2.4: nodeValue и textContent");
     // Получи текстовое содержимое заголовка через textContent
+    const header = document.getElementsByTagName("head");
+    console.log(elem1.textContent);
+
 
     console.log("🟩 Task 3.1: Управление текстом элемента");
     // Измени текст у <p name="desc">
+    elem4[0].textContent = "My new text";
+
 
     console.log("🟩 Task 3.2: Управление HTML элемента");
     // Задай HTML-код внутри .container (например, <b>hello</b>)
+    const elem8 = document.getElementsByClassName("container");
+    elem8[0].insertAdjacentHTML("beforeend", "<b>hello</b>");
+
 
     console.log("🟩 Task 4.1: Создание и добавление элемента");
     // Создай новый <div> с текстом и добавь в body
+    const newElem = document.createElement("div");
+    newElem.textContent = "Hello world";
+    document.body.insertBefore(newElem, document.body.firstElementChild);
+
 
     console.log("🟩 Task 4.2: Копирование элемента");
     // Клонируй один из <li> и добавь копию в список
+    const liClone = elem2[0].cloneNode(true);
+    ulElem[0].appendChild(liClone);
+
 
     console.log("🟩 Task 4.3: Замена элемента");
     // Замени <h1> на <h2> с тем же текстом
+    const h1Elem = document.getElementsByTagName("h1")[0];
+    const newElemR = document.createElement("h2");
+    newElemR.textContent = h1Elem.textContent;
+    document.body.replaceChild(newElemR, h1Elem);
+
 
     console.log("🟩 Task 4.4: Удаление элемента");
     // Удали элемент с id="nested"
+    document.body.removeChild(document.getElementById("nested"));
+
 
     console.log("🟩 Task 5.1: Работа с атрибутами");
     // Получи, измени и удали атрибут name у <p>
+    const pElem = document.getElementsByTagName("p")[0];
+    console.log(pElem.getAttribute("name"));
+    pElem.setAttribute("name", "NEW NAME");
+    console.log(pElem.getAttribute("name"));
+    pElem.removeAttribute("name");
+    console.log(pElem.getAttribute("name"));
+
 
     console.log("🟩 Task 6.1: Стили через style");
     // Измени цвет фона body через JS
+    document.body.style.backgroundColor = "grey";
+
 
     console.log("🟩 Task 6.2: className");
     // Назначь класс "red" для <p>
+    pElem.className = "red";
+
 
     console.log("🟩 Task 6.3: classList");
     // Добавь и удали класс "highlight" у <h1>
+    newElemR.classList.add("highlight");
+    newElemR.classList.remove("highlight");
+
 
     console.log("🟩 Task 7.1: Свой элемент HTML");
     // Создай объект с HTMLElement-прототипом и выведи info()
+    //не понял, что подразумевается под "выведи info()"
+    class TimElement extends HTMLElement {
+      role = "NULL";
+      constructor() {
+        super();
+        this.style.cursor="pointer"
+        this.innerText= "welcome";
+      }
+      logText() {
+        console.log("Это элемент HTML от TimCheers");
+      }
+      connectedCallback() {
+        console.log("Connected");;
+      }
+    }
+    customElements.define("tim-element", TimElement);
+
+
 
     console.log("🟩 Task 7.2: Методы и свойства элемента");
     // Добавь метод logText() и вызови его у нового элемента
+    const myElem = document.createElement("tim-element");
+    document.body.appendChild(myElem);
+    myElem.logText();
+
 
     console.log("🟩 Task 7.3: Жизненный цикл");
     // При добавлении в DOM выведи сообщение (используй MutationObserver)
+    // Не знаю про MutationObserver, использовал connectedCallback
+
 
     console.log("🟩 Task 7.4: Атрибуты своего элемента");
     // Добавь атрибут "role" и проверь его значение
+    console.log(myElem.role);
+
 
     console.log("🟩 Task 7.5: Стилизация CSS");
     // Применяй стили к созданному элементу (цвет, размер, фон)
+
+
   </script>
 </body>
+
 </html>
