@@ -31,7 +31,6 @@
   </div>
   <div id="nested">
     <span class="inner">Nested Span</span>
-    <tim-element></tim-element>
   </div>
 
   <script>
@@ -57,7 +56,7 @@
     console.log("🟩 Task 1.4: Поиск по name");
     // Найди элемент по атрибуту name="desc" и выведи его текст
     const elem4 = document.getElementsByName("desc");
-    console.log(elem4.innerText);                                         //?
+    console.log(elem4[0].innerText);
 
 
     console.log("🟩 Task 1.5: Поиск по CSS-селектору");
@@ -70,8 +69,8 @@
     // Найди span внутри #nested и измени его текст
     const elem6 = document.getElementById("nested");
     const elem7 = elem6.getElementsByTagName("span");
-    elem7.innerText = "Updated text";
-    console.log(elem7);                                                   //?
+    elem7[0].innerText = "Updated text";
+    console.log(elem7);
 
 
     console.log("🟩 Task 2.1: Получение родителя");
@@ -97,7 +96,6 @@
 
     console.log("🟩 Task 2.4: nodeValue и textContent");
     // Получи текстовое содержимое заголовка через textContent
-    const header = document.getElementsByTagName("head");
     console.log(elem1.textContent);
 
 
@@ -171,25 +169,31 @@
       role = "NULL";
       constructor() {
         super();
-        this.style.cursor="pointer"
-        this.innerText= "welcome";
+        this.style.cursor = "pointer";
+        this.innerText = "welcome";
       }
       logText() {
         console.log("Это элемент HTML от TimCheers");
       }
       connectedCallback() {
-        console.log("Connected");;
+        console.log("Connected");
       }
     }
-    customElements.define("tim-element", TimElement);
-
+    if (!customElements.get("tim-element")) {
+      customElements.define("tim-element", TimElement);
+    }
 
 
     console.log("🟩 Task 7.2: Методы и свойства элемента");
     // Добавь метод logText() и вызови его у нового элемента
-    const myElem = document.createElement("tim-element");
-    document.body.appendChild(myElem);
-    myElem.logText();
+    const myElem = document.createElement("div");
+    myElem.innerHTML = "<tim-element></tim-element>";
+    document.body.appendChild(myElem.firstElementChild);
+
+    setTimeout(() => {
+      document.querySelector("tim-element").logText();
+    }, 0);
+
 
 
     console.log("🟩 Task 7.3: Жизненный цикл");
